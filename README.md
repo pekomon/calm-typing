@@ -1,5 +1,7 @@
 # CalmTyping
 
+![CalmTyping](calmtyping-logo.svg)
+
 A minimalist, ad-free touch typing trainer for Finnish and English.
 
 - Finger hints  
