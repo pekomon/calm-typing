@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CalmTyping – Home Row Trainer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color-scheme: dark;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #020617;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .app {
+      margin: 24px;
+      max-width: 1120px;
+      width: 100%;
+      background: #020617;
+      border-radius: 16px;
+      padding: 24px 28px 32px;
+      box-shadow: 0 22px 45px rgba(0,0,0,0.45);
+      border: 1px solid #111827;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-bottom: 18px;
+    }
+
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .pill,
+    .button {
+      background: #020617;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .select {
+      position: relative;
+      padding-right: 26px;
+    }
+
+    .select select {
+      background: transparent;
+      border: none;
+      color: inherit;
+      font: inherit;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select::after {
+      content: "▾";
+      position: absolute;
+      right: 8px;
+      font-size: 0.7rem;
+      color: #6b7280;
+      pointer-events: none;
+    }
+
+    .button {
+      cursor: pointer;
+      background: #111827;
+      border-color: #6b7280;
+      transition: background 0.15s, transform 0.05s, box-shadow 0.05s;
+    }
+
+    .button:hover {
+      background: #1f2937;
+    }
+
+    .button:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+
+    .helper-text {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    aside.lessons {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid #111827;
+      padding: 12px;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .lessons-title {
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .lesson-group-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #6b7280;
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+
+    .lessons-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .lesson {
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #020617;
+      color: #d1d5db;
+    }
+
+    .lesson:hover {
+      background: #020617;
+      border-color: #1f2937;
+    }
+
+    .lesson.active {
+      background: #111827;
+      border-color: #6366f1;
+      color: #e5e7eb;
+    }
+
+    .lesson-main {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .lesson-sub {
+      font-size: 0.7rem;
+      color: #6b7280;
+    }
+
+    .lesson-tag {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #020617;
+      border: 1px solid #1f2937;
+      color: #9ca3af;
+      white-space: nowrap;
+    }
+
+    main.main {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .exercise {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid #111827;
+      padding: 12px 14px;
+      min-height: 120px;
+    }
+
+    .exercise-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #6b7280;
+    }
+
+    .segment-label {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .exercise-text {
+      font-size: 1.02rem;
+      line-height: 1.6;
+      color: #9ca3af;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .exercise-text span.current {
+      background: #6366f1;
+      color: #e5e7eb;
+      border-radius: 3px;
+      padding: 0 1px;
+    }
+
+    .exercise-text span.done {
+      color: #22c55e;
+    }
+
+    .exercise-text span.error {
+      color: #f97373;
+      text-decoration: underline;
+    }
+
+    .typed {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid #111827;
+      padding: 10px 14px;
+      min-height: 60px;
+      font-size: 0.96rem;
+      color: #e5e7eb;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .stats-and-finger {
+      display: grid;
+      grid-template-columns: 2fr 1.7fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .stats-and-finger {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .stat {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #020617;
+      border: 1px solid #111827;
+      min-width: 82px;
+    }
+
+    .stat strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .finger-box {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid #111827;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .finger-main {
+      font-size: 0.9rem;
+      color: #e5e7eb;
+    }
+
+    .finger-detail {
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+
+    .hand-diagrams {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4px;
+      gap: 10px;
+    }
+
+    .hand-diagrams svg {
+      width: 110px;
+      height: 80px;
+    }
+
+    .hand-outline {
+      fill: none;
+      stroke: #4b5563;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .finger-dot {
+      fill: none;
+      stroke: #6b7280;
+      stroke-width: 2;
+    }
+
+    .finger-dot.active {
+      fill: #22c55e;
+      stroke: #22c55e;
+    }
+
+    .keyboard {
+      margin-top: 10px;
+      border-radius: 12px;
+      border: 1px solid #111827;
+      padding: 10px;
+      background: radial-gradient(circle at top, #111827, #020617);
+    }
+
+    .kb-row {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .key {
+      min-width: 28px;
+      padding: 6px 6px;
+      border-radius: 6px;
+      background: #020617;
+      border: 1px solid #1f2937;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      user-select: none;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.5);
+    }
+
+    .key.wide {
+      min-width: 50px;
+    }
+
+    .key.space {
+      min-width: 200px;
+    }
+
+    .key.active {
+      background: #4f46e5;
+      color: #e5e7eb;
+      border-color: #818cf8;
+      box-shadow: 0 0 0 1px rgba(129,140,248,0.7);
+    }
+  </style>
+</head>
+<body>
+<div class="app" tabindex="0" id="appRoot">
+  <h1 id="uiTitle">CalmTyping – Home Row Trainer</h1>
+  <div class="subtitle" id="uiSubtitle">
+    Practice touch typing without looking at the keyboard. Choose any exercise in any order.
+  </div>
+
+  <div class="top-bar">
+    <div class="pill select">
+      <span id="uiPracticeLangLabel">Practice language:</span>
+      <select id="languageSelect">
+        <option value="fi">Finnish</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+
+    <div class="pill select">
+      <span id="uiUiLangLabel">UI language:</span>
+      <select id="uiLanguageSelect">
+        <option value="en">English</option>
+        <option value="fi">Suomi</option>
+      </select>
+    </div>
+
+    <button class="button" id="resetBtn">Reset exercise (Esc)</button>
+    <span class="helper-text" id="uiHelper">
+      Make sure this window has focus. Just start typing, there is no text field.
+    </span>
+  </div>
+
+  <div class="layout">
+    <aside class="lessons">
+      <div class="lessons-title" id="uiLessonsTitle">Lessons (free order)</div>
+      <div id="lessonsList"></div>
+    </aside>
+
+    <main class="main">
+      <section class="exercise">
+        <div class="exercise-label-row">
+          <div class="label" id="uiExerciseLabel">Exercise text</div>
+          <div class="segment-label" id="segmentLabel"></div>
+        </div>
+        <div id="exerciseText" class="exercise-text">
+          Select a lesson on the left and start typing.
+        </div>
+      </section>
+
+      <section class="typed">
+        <div class="label" id="uiTypedLabel">Your typing</div>
+        <div id="typedText"></div>
+      </section>
+
+      <div class="stats-and-finger">
+        <section class="stats">
+          <div class="stat"><span id="uiStatCharsLabel">Chars:</span> <strong id="statChars">0</strong></div>
+          <div class="stat"><span id="uiStatErrorsLabel">Errors:</span> <strong id="statErrors">0</strong></div>
+          <div class="stat"><span id="uiStatAccuracyLabel">Accuracy:</span> <strong id="statAccuracy">100%</strong></div>
+          <div class="stat"><span id="uiStatTimeLabel">Time:</span> <strong id="statTime">0.0 s</strong></div>
+          <div class="stat"><span id="uiStatWpmLabel">Speed:</span> <strong id="statWpm">0 WPM</strong></div>
+        </section>
+
+        <section class="finger-box">
+          <div class="label" id="uiFingerTitle">Finger guide</div>
+          <div class="finger-main" id="fingerMain">
+            Select a lesson to see finger hints.
+          </div>
+          <div class="finger-detail" id="fingerDetail">
+            CalmTyping suggests which finger to use for the next key. Space uses both thumbs.
+          </div>
+
+          <div class="hand-diagrams">
+            <!-- LEFT HAND -->
+            <svg viewBox="0 0 100 80" aria-hidden="true">
+              <!-- palm -->
+              <path class="hand-outline"
+                    d="M24 72
+                       L24 52
+                       Q24 44 30 44
+                       L70 44
+                       Q76 44 76 52
+                       L76 72 Z" />
+              <!-- four fingers (lines) -->
+              <path class="hand-outline" d="M28 44 L28 26" />
+              <path class="hand-outline" d="M40 44 L40 20" />
+              <path class="hand-outline" d="M52 44 L52 18" />
+              <path class="hand-outline" d="M64 44 L64 24" />
+              <!-- fingertips -->
+              <circle class="finger-dot" data-finger="leftPinky"  cx="28" cy="26" r="3" />
+              <circle class="finger-dot" data-finger="leftRing"   cx="40" cy="20" r="3" />
+              <circle class="finger-dot" data-finger="leftMiddle" cx="52" cy="18" r="3" />
+              <circle class="finger-dot" data-finger="leftIndex"  cx="64" cy="24" r="3" />
+              <!-- thumb on inner side (right) -->
+              <circle class="finger-dot" data-finger="leftThumb"  cx="62" cy="60" r="3" />
+            </svg>
+
+            <!-- RIGHT HAND -->
+            <svg viewBox="0 0 100 80" aria-hidden="true">
+              <!-- palm -->
+              <path class="hand-outline"
+                    d="M76 72
+                       L76 52
+                       Q76 44 70 44
+                       L30 44
+                       Q24 44 24 52
+                       L24 72 Z" />
+              <!-- four fingers (lines) -->
+              <path class="hand-outline" d="M72 44 L72 26" />
+              <path class="hand-outline" d="M60 44 L60 20" />
+              <path class="hand-outline" d="M48 44 L48 18" />
+              <path class="hand-outline" d="M36 44 L36 24" />
+              <!-- fingertips -->
+              <circle class="finger-dot" data-finger="rightPinky"  cx="72" cy="26" r="3" />
+              <circle class="finger-dot" data-finger="rightRing"   cx="60" cy="20" r="3" />
+              <circle class="finger-dot" data-finger="rightMiddle" cx="48" cy="18" r="3" />
+              <circle class="finger-dot" data-finger="rightIndex"  cx="36" cy="24" r="3" />
+              <!-- thumb on inner side (left) -->
+              <circle class="finger-dot" data-finger="rightThumb" cx="38" cy="60" r="3" />
+            </svg>
+          </div>
+        </section>
+      </div>
+
+      <section class="keyboard">
+        <div class="kb-row">
+          <div class="key wide">§</div>
+          <div class="key" data-key="1">1</div>
+          <div class="key" data-key="2">2</div>
+          <div class="key" data-key="3">3</div>
+          <div class="key" data-key="4">4</div>
+          <div class="key" data-key="5">5</div>
+          <div class="key" data-key="6">6</div>
+          <div class="key" data-key="7">7</div>
+          <div class="key" data-key="8">8</div>
+          <div class="key" data-key="9">9</div>
+          <div class="key" data-key="0">0</div>
+          <div class="key" data-key="+">+</div>
+        </div>
+        <div class="kb-row">
+          <div class="key wide">Tab</div>
+          <div class="key" data-key="q">Q</div>
+          <div class="key" data-key="w">W</div>
+          <div class="key" data-key="e">E</div>
+          <div class="key" data-key="r">R</div>
+          <div class="key" data-key="t">T</div>
+          <div class="key" data-key="y">Y</div>
+          <div class="key" data-key="u">U</div>
+          <div class="key" data-key="i">I</div>
+          <div class="key" data-key="o">O</div>
+          <div class="key" data-key="p">P</div>
+          <div class="key" data-key="å">Å</div>
+        </div>
+        <div class="kb-row">
+          <div class="key wide">Caps</div>
+          <div class="key" data-key="a">A</div>
+          <div class="key" data-key="s">S</div>
+          <div class="key" data-key="d">D</div>
+          <div class="key" data-key="f">F</div>
+          <div class="key" data-key="g">G</div>
+          <div class="key" data-key="h">H</div>
+          <div class="key" data-key="j">J</div>
+          <div class="key" data-key="k">K</div>
+          <div class="key" data-key="l">L</div>
+          <div class="key" data-key="ö">Ö</div>
+          <div class="key" data-key="ä">Ä</div>
+        </div>
+        <div class="kb-row">
+          <div class="key wide">Shift</div>
+          <div class="key" data-key="z">Z</div>
+          <div class="key" data-key="x">X</div>
+          <div class="key" data-key="c">C</div>
+          <div class="key" data-key="v">V</div>
+          <div class="key" data-key="b">B</div>
+          <div class="key" data-key="n">N</div>
+          <div class="key" data-key="m">M</div>
+          <div class="key" data-key=",">,</div>
+          <div class="key" data-key=".">.</div>
+          <div class="key wide">Shift</div>
+        </div>
+        <div class="kb-row">
+          <div class="key wide">Ctrl</div>
+          <div class="key wide">Alt</div>
+          <div class="key space" data-key=" ">Space</div>
+          <div class="key wide">AltGr</div>
+          <div class="key wide">Ctrl</div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+  // ==== LESSON DATA ==========================================================
+  // Each lesson is a modular exercise:
+  // - group: which logical lesson set it belongs to (e.g. L1 Home Row, Long FI)
+  // - category: "Introduction", "Technique", "Word practice", "Long practice"
+  // - language: practice language, "fi" or "en"
+  // - segments: short pieces of text the user types one by one
+
+  const lessons = [
+    // -----------------------------------------------------------------------
+    // L1 – Home Row (Finnish) – allowed chars: a s d f j k l ö + space
+    // -----------------------------------------------------------------------
+    {
+      id: "fi-l1-intro",
+      group: "Lesson 1 – Home Row (FI)",
+      category: "Introduction",
+      language: "fi",
+      label: "Home row – basic patterns",
+      tag: "L1",
+      fingerHints: true,
+      segments: [
+        "asdf asdf asdf asdf",
+        "jklö jklö jklö jklö",
+        "as as as df df df",
+        "jk jk jk lö lö lö",
+        "aa ss dd ff jj kk ll öö",
+        "asdf jklö asdf jklö",
+        "as df as df as df",
+        "ja la sa ja la sa"
+      ]
+    },
+    {
+      id: "fi-l1-tech-1",
+      group: "Lesson 1 – Home Row (FI)",
+      category: "Technique",
+      language: "fi",
+      label: "Technique drill 1 – left ↔ right hand",
+      tag: "L1",
+      fingerHints: true,
+      segments: [
+        "as jk as jk as jk",
+        "df jl df jl df jl",
+        "sa ja sa ja sa ja",
+        "la ja la ja la ja",
+        "as as jk jk as as jk jk",
+        "asdf jklö asdf jklö",
+        "as jl as jl as jl",
+        "sa lö sa lö sa lö"
+      ]
+    },
+    {
+      id: "fi-l1-tech-2",
+      group: "Lesson 1 – Home Row (FI)",
+      category: "Technique",
+      language: "fi",
+      label: "Technique drill 2 – small jumps",
+      tag: "L1",
+      fingerHints: true,
+      segments: [
+        "asa sasa asda asfa",
+        "jaka lajka jakla",
+        "sala sala sala sala",
+        "asdf sadf asdf sadf",
+        "jklö lkjö jklö lkjö",
+        "asla asla laas laas",
+        "lasj ljas salj jalas",
+        "asjf sjaf jasf fasj"
+      ]
+    },
+    {
+      id: "fi-l1-tech-3",
+      group: "Lesson 1 – Home Row (FI)",
+      category: "Technique",
+      language: "fi",
+      label: "Technique drill 3 – mixed rhythm",
+      tag: "L1",
+      fingerHints: true,
+      segments: [
+        "as as asdf asdf",
+        "sa sa saas saas",
+        "la la laal laal",
+        "lö lö lööl lööl",
+        "as la asla asla",
+        "ja sa jasa jasa",
+        "öf löf löf öf",
+        "jasl sjal ljas asjl"
+      ]
+    },
+    {
+      id: "fi-l1-words-1",
+      group: "Lesson 1 – Home Row (FI)",
+      category: "Word practice",
+      language: "fi",
+      label: "Word practice 1 – simple shapes",
+      tag: "L1",
+      fingerHints: true,
+      segments: [
+        "alkaa lakkaa saas sada",
+        "salla kala laas sala",
+        "kala asla laskaa kala",
+        "lasja salas kala laja",
+        "kasla laksa sallaa kala",
+        "jalla kasa laas kalaa"
+      ]
+    },
+    {
+      id: "fi-l1-words-2",
+      group: "Lesson 1 – Home Row (FI)",
+      category: "Word practice",
+      language: "fi",
+      label: "Word practice 2 – longer patterns",
+      tag: "L1",
+      fingerHints: true,
+      segments: [
+        "sala kala laasa kalaa",
+        "salla jalla kala saas",
+        "alkaa kalaa sallaa laas",
+        "kalas salas laasa kala",
+        "lasja salasja kalasla",
+        "salla laasa kala sallaa"
+      ]
+    },
+
+    // -----------------------------------------------------------------------
+    // Finnish – long practice texts (general, not tied to L1 only)
+    // -----------------------------------------------------------------------
+    {
+      id: "fi-long-1",
+      group: "Long practice (FI)",
+      category: "Long practice",
+      language: "fi",
+      label: "Long practice – rhythm and accuracy",
+      tag: "Long",
+      fingerHints: true,
+      segments: [
+        "Tässä harjoituksessa keskityt tasaiseen rytmiin.\nÄlä yritä olla mahdollisimman nopea, vaan tarkka.",
+        "Kun kirjoitat rauhassa, oikeat sormet löytävät näppäimet vähitellen kuin itsestään.\nHengitä välillä syvään ja anna käsien rentoutua.",
+        "Jos huomaat puristavasi hiirtä tai pöydän reunaa, rentouta ote tietoisesti.\nLyhyt tauko nyt säästää voimia myöhempää harjoittelua varten.",
+        "Tämän harjoituksen aikana ei ole kiirettä.\nVoit toistaa saman segmentin useita kertoja, jos se tuntuu hyödylliseltä.",
+        "Kun tarkkuus paranee, myös kirjoitusnopeus nousee vähitellen.\nMuutos ei ehkä näy heti, mutta kertyy hiljaa taustalla.",
+        "Ajattele jokaista kirjainta pienenä askeleena eteenpäin.\nJokainen oikein kirjoitettu sana on osa uutta rutiinia.",
+        "Jos teet virheen, älä hermostu.\nPaina vain Backspace ja kirjoita kohta uudelleen.",
+        "Tarkkuus ennen nopeutta.\nKun tämä periaate on kunnossa, kaikki muu seuraa myöhemmin perässä."
+      ]
+    },
+    {
+      id: "fi-long-2",
+      group: "Long practice (FI)",
+      category: "Long practice",
+      language: "fi",
+      label: "Long practice – focus and small goals",
+      tag: "Long",
+      fingerHints: true,
+      segments: [
+        "Kun aloitat harjoituksen, päätä ensin hetki jonka käytät kirjoittamiseen.\nEsimerkiksi kymmenen minuuttia rauhallista keskittymistä riittää hyvin.",
+        "Sulje mahdollisuuksien mukaan turhat ilmoitukset ja muut häiriötekijät.\nNäppäimistö ja teksti riittävät tähän hetkeen.",
+        "Jos huomaat ajatusten karkaavan muualle, tuo huomio takaisin hengitykseen.\nSen jälkeen jatka kirjoittamista samaan rytmiin kuin ennenkin.",
+        "Voit ajatella tekstiä pienenä polkuna, jota kuljet kirjain kirjaimelta.\nAskeleet ovat pieniä, mutta suunta pysyy samana.",
+        "Harjoittelun ei tarvitse olla täydellistä.\nRiittää, että palaat näppäimistön ääreen säännöllisesti.",
+        "Pienetkin parannukset ovat arvokkaita.\nKun katsot taaksepäin muutaman viikon kuluttua, ero voi olla yllättävän suuri.",
+        "Anna itsellesi lupa oppia omaan tahtiin.\nKukaan ei synny kosketuskirjoittajaksi, vaan taidon oppii harjoittelemalla.",
+        "Lopuksi voit huomata, miltä keho ja mieli tuntuvat.\nEhkä hengitys on tasaisempi ja sormet liikkuvat hieman varmemmin."
+      ]
+    },
+
+    // -----------------------------------------------------------------------
+    // English – long practice texts (general)
+    // -----------------------------------------------------------------------
+    {
+      id: "en-long-1",
+      group: "Long practice (EN)",
+      category: "Long practice",
+      language: "en",
+      label: "Long practice – calm focus",
+      tag: "Long",
+      fingerHints: true,
+      segments: [
+        "In this exercise you focus on a calm and steady rhythm.\nDo not rush, even if the text looks simple at first.",
+        "Type each word with as little force as possible.\nLet your fingers glide over the keys instead of pushing hard.",
+        "If you make a mistake, simply press Backspace and try again.\nThere is no need to hurry to the end of the segment.",
+        "Imagine that every correct letter is a small step forward.\nMany small steps in one direction become real progress.",
+        "Try to keep your eyes on the text, not on the keyboard.\nTrust that your fingers will slowly learn where to go.",
+        "If your thoughts start to wander, gently bring them back.\nNotice the feeling of each key as you press it down.",
+        "The goal of this practice is not speed.\nIt is a quieter and more confident way of typing.",
+        "When the text feels easier, you can move on to another lesson.\nUntil then, this segment is more than enough."
+      ]
+    },
+    {
+      id: "en-long-2",
+      group: "Long practice (EN)",
+      category: "Long practice",
+      language: "en",
+      label: "Long practice – building habits",
+      tag: "Long",
+      fingerHints: true,
+      segments: [
+        "Typing is easier when it becomes a habit.\nShort and regular sessions often work better than a single long one.",
+        "You can choose a time of day that suits you.\nSome people like to practice in the morning, others in the evening.",
+        "The important part is that you show up.\nEven five minutes of focused practice can make a difference.",
+        "Over time, your fingers will remember common words.\nThey will appear on the screen almost before you notice it.",
+        "If you skip a day, do not feel guilty.\nJust return to the keyboard and continue from where you stopped.",
+        "Habits grow slowly, but they are powerful.\nOnce formed, they carry you even on tired days.",
+        "This exercise is one small brick in the wall of your new skill.\nIt does not have to be perfect to be useful.",
+        "Notice how you feel at the end of the practice.\nPerhaps your shoulders are a little less tense than before."
+      ]
+    }
+  ];
+
+  // ==== FINGER LAYOUT =======================================================
+  // Simple finger mapping for Finnish Mac keyboard. English layout reuses
+  // the same mapping for now.
+
+  const fingerLayouts = {
+    fi: {
+      names: {
+        leftPinky:  "left pinky",
+        leftRing:   "left ring finger",
+        leftMiddle: "left middle finger",
+        leftIndex:  "left index finger",
+        leftThumb:  "left thumb",
+        rightThumb: "right thumb",
+        rightIndex: "right index finger",
+        rightMiddle:"right middle finger",
+        rightRing:  "right ring finger",
+        rightPinky: "right pinky"
+      },
+      keyMap: {
+        "§": "leftPinky", "1": "leftPinky", "q": "leftPinky", "a": "leftPinky", "z": "leftPinky",
+        "2": "leftRing", "w": "leftRing", "s": "leftRing", "x": "leftRing",
+        "3": "leftMiddle", "e": "leftMiddle", "d": "leftMiddle", "c": "leftMiddle",
+        "4": "leftIndex", "5": "leftIndex", "r": "leftIndex", "t": "leftIndex",
+        "f": "leftIndex", "g": "leftIndex", "v": "leftIndex", "b": "leftIndex",
+        "6": "rightIndex", "7": "rightIndex", "y": "rightIndex", "u": "rightIndex",
+        "h": "rightIndex", "j": "rightIndex", "n": "rightIndex", "m": "rightIndex",
+        "8": "rightMiddle", "i": "rightMiddle", "k": "rightMiddle", ",": "rightMiddle",
+        "9": "rightRing", "o": "rightRing", "l": "rightRing", ".": "rightRing",
+        "0": "rightPinky", "+": "rightPinky", "p": "rightPinky", "å": "rightPinky",
+        "ö": "rightPinky", "ä": "rightPinky", "-": "rightPinky", "_": "rightPinky",
+        "?": "rightPinky", "!": "rightPinky", ":": "rightPinky", ";": "rightPinky"
+      }
+    },
+    en: null
+  };
+
+  // English layout currently reuses the same mapping as Finnish Mac.
+  fingerLayouts.en = {
+    names: { ...fingerLayouts.fi.names },
+    keyMap: { ...fingerLayouts.fi.keyMap }
+  };
+
+  // ==== UI TEXTS ============================================================
+
+  const uiTexts = {
+    en: {
+      title: "CalmTyping – Home Row Trainer",
+      subtitle: "Practice touch typing without looking at the keyboard. Choose any exercise in any order.",
+      practiceLangLabel: "Practice language:",
+      uiLangLabel: "UI language:",
+      reset: "Reset exercise (Esc)",
+      helper: "Make sure this window has focus. Just start typing, there is no text field.",
+      lessonsTitle: "Lessons (free order)",
+      exerciseLabel: "Exercise text",
+      typedLabel: "Your typing",
+      statChars: "Chars:",
+      statErrors: "Errors:",
+      statAccuracy: "Accuracy:",
+      statTime: "Time:",
+      statWpm: "Speed:",
+      fingerTitle: "Finger guide",
+      fingerIdleMain: "Select a lesson to see finger hints.",
+      fingerIdleDetail: "For both drills and long texts, the app suggests a finger for the next character.",
+      fingerDoneMain: "This exercise is complete.",
+      fingerDoneDetail: "You can repeat the text, switch to another lesson, or move to the next exercise with Space.",
+      fingerNoHintsMain: "This exercise does not show finger hints.",
+      fingerNoHintsDetail: "Use what you have learned from the basic lessons.",
+      nextChar: (ch) => `Next character: ${ch}`,
+      useFinger: (fingerName) => `Recommended finger: ${fingerName}.`,
+      useThumbs: "Recommended finger: both thumbs (space bar).",
+      useEnter: "Recommended finger: right pinky (Enter / return).",
+      noSpecific: "No specific finger recommendation for this character.",
+      segmentLabel: (current, total) => `Segment ${current}/${total}`,
+      groupLabel: (group) => group,
+      longPracticeAllChars: "Long practice · all characters"
+    },
+    fi: {
+      title: "CalmTyping – Kotirivin harjoitus",
+      subtitle: "Harjoittele kirjoittamista katsomatta näppäimistöä. Valitse harjoitus vapaassa järjestyksessä.",
+      practiceLangLabel: "Harjoittelun kieli:",
+      uiLangLabel: "Käyttöliittymän kieli:",
+      reset: "Nollaa harjoitus (Esc)",
+      helper: "Varmista, että tämä ikkuna on fokuksessa. Ala vain kirjoittaa, erillistä tekstikenttää ei ole.",
+      lessonsTitle: "Harjoitukset (vapaa järjestys)",
+      exerciseLabel: "Harjoitusteksti",
+      typedLabel: "Kirjoituksesi",
+      statChars: "Merkkejä:",
+      statErrors: "Virheitä:",
+      statAccuracy: "Tarkkuus:",
+      statTime: "Aika:",
+      statWpm: "Nopeus:",
+      fingerTitle: "Sormiohje",
+      fingerIdleMain: "Valitse harjoitus nähdäksesi sormiohjeen.",
+      fingerIdleDetail: "Sekä tekniikkaharjoituksissa että pitkissä teksteissä sovellus ehdottaa sormea seuraavalle merkille.",
+      fingerDoneMain: "Tämä harjoitus on kirjoitettu loppuun.",
+      fingerDoneDetail: "Voit toistaa tekstin, vaihtaa harjoitusta tai siirtyä seuraavaan harjoitukseen välilyönnillä.",
+      fingerNoHintsMain: "Tässä harjoituksessa ei näytetä sormiohjeita.",
+      fingerNoHintsDetail: "Käytä aiemmissa harjoituksissa opittua sormijakoa.",
+      nextChar: (ch) => `Seuraava merkki: ${ch}`,
+      useFinger: (fingerName) => `Suositeltu sormi: ${fingerName}.`,
+      useThumbs: "Suositeltu sormi: peukalot (välilyönti).",
+      useEnter: "Suositeltu sormi: oikea pikkurilli (Enter / rivinvaihto).",
+      noSpecific: "Tähän merkkiin ei ole erityistä sormisuositusta.",
+      segmentLabel: (current, total) => `Segmentti ${current}/${total}`,
+      groupLabel: (group) => group,
+      longPracticeAllChars: "Pitkä harjoitus · kaikki merkit"
+    }
+  };
+
+  // ==== DOM REFERENCES ======================================================
+
+  const appRoot = document.getElementById("appRoot");
+  const languageSelect = document.getElementById("languageSelect");
+  const uiLanguageSelect = document.getElementById("uiLanguageSelect");
+  const lessonsList = document.getElementById("lessonsList");
+  const exerciseTextElem = document.getElementById("exerciseText");
+  const typedTextElem = document.getElementById("typedText");
+  const segmentLabelElem = document.getElementById("segmentLabel");
+
+  const statChars = document.getElementById("statChars");
+  const statErrors = document.getElementById("statErrors");
+  const statAccuracy = document.getElementById("statAccuracy");
+  const statTime = document.getElementById("statTime");
+  const statWpm = document.getElementById("statWpm");
+
+  const resetBtn = document.getElementById("resetBtn");
+
+  const uiTitle = document.getElementById("uiTitle");
+  const uiSubtitle = document.getElementById("uiSubtitle");
+  const uiPracticeLangLabel = document.getElementById("uiPracticeLangLabel");
+  const uiUiLangLabel = document.getElementById("uiUiLangLabel");
+  const uiHelper = document.getElementById("uiHelper");
+  const uiLessonsTitle = document.getElementById("uiLessonsTitle");
+  const uiExerciseLabel = document.getElementById("uiExerciseLabel");
+  const uiTypedLabel = document.getElementById("uiTypedLabel");
+  const uiStatCharsLabel = document.getElementById("uiStatCharsLabel");
+  const uiStatErrorsLabel = document.getElementById("uiStatErrorsLabel");
+  const uiStatAccuracyLabel = document.getElementById("uiStatAccuracyLabel");
+  const uiStatTimeLabel = document.getElementById("uiStatTimeLabel");
+  const uiStatWpmLabel = document.getElementById("uiStatWpmLabel");
+
+  const fingerTitle = document.getElementById("uiFingerTitle");
+  const fingerMain = document.getElementById("fingerMain");
+  const fingerDetail = document.getElementById("fingerDetail");
+
+  const allFingerDots = document.querySelectorAll(".finger-dot");
+  const allKeys = document.querySelectorAll(".key[data-key]");
+
+  // ==== STATE ===============================================================
+
+  let currentLesson = null;
+  let currentSegmentIndex = 0;
+  let typed = "";
+  let errors = 0;
+  let startTime = null;
+  let currentUiLang = "en";
+  let exerciseCompleted = false;
+
+  // ==== UI LANGUAGE =========================================================
+
+  function applyUiLanguage() {
+    const t = uiTexts[currentUiLang];
+
+    uiTitle.textContent = t.title;
+    uiSubtitle.textContent = t.subtitle;
+    uiPracticeLangLabel.textContent = t.practiceLangLabel;
+    uiUiLangLabel.textContent = t.uiLangLabel;
+    resetBtn.textContent = t.reset;
+    uiHelper.textContent = t.helper;
+    uiLessonsTitle.textContent = t.lessonsTitle;
+    uiExerciseLabel.textContent = t.exerciseLabel;
+    uiTypedLabel.textContent = t.typedLabel;
+    uiStatCharsLabel.textContent = t.statChars;
+    uiStatErrorsLabel.textContent = t.statErrors;
+    uiStatAccuracyLabel.textContent = t.statAccuracy;
+    uiStatTimeLabel.textContent = t.statTime;
+    uiStatWpmLabel.textContent = t.statWpm;
+    fingerTitle.textContent = t.fingerTitle;
+
+    if (!currentLesson) {
+      exerciseTextElem.textContent =
+        currentUiLang === "fi"
+          ? "Valitse vasemmalta harjoitus ja ala kirjoittaa."
+          : "Select a lesson on the left and start typing.";
+      segmentLabelElem.textContent = "";
+      fingerMain.textContent = t.fingerIdleMain;
+      fingerDetail.textContent = t.fingerIdleDetail;
+      highlightFingers([]);
+    } else {
+      updateSegmentLabel();
+      updateFingerHint();
+    }
+  }
+
+  // ==== HELPER: CURRENT TEXT & SEGMENTS ====================================
+
+  function getCurrentText() {
+    if (!currentLesson) return "";
+    if (currentLesson.segments) {
+      return currentLesson.segments[currentSegmentIndex] || "";
+    }
+    return "";
+  }
+
+  function totalSegments() {
+    if (!currentLesson || !currentLesson.segments) return 1;
+    return currentLesson.segments.length;
+  }
+
+  function updateSegmentLabel() {
+    if (!currentLesson || !currentLesson.segments) {
+      segmentLabelElem.textContent = "";
+      return;
+    }
+    const t = uiTexts[currentUiLang];
+    segmentLabelElem.textContent = t.segmentLabel(currentSegmentIndex + 1, totalSegments());
+  }
+
+  // ==== LESSON LIST RENDERING ==============================================
+
+  function renderLessons() {
+    const practiceLang = languageSelect.value;
+    const t = uiTexts[currentUiLang];
+
+    lessonsList.innerHTML = "";
+
+    // Group lessons by "group" field to show small section headers
+    const filtered = lessons.filter(l => l.language === practiceLang);
+    const byGroup = {};
+    filtered.forEach(lesson => {
+      if (!byGroup[lesson.group]) byGroup[lesson.group] = [];
+      byGroup[lesson.group].push(lesson);
+    });
+
+    Object.keys(byGroup).forEach(groupName => {
+      const groupLabel = document.createElement("div");
+      groupLabel.className = "lesson-group-label";
+      groupLabel.textContent = t.groupLabel(groupName);
+      lessonsList.appendChild(groupLabel);
+
+      const list = document.createElement("div");
+      list.className = "lessons-list";
+
+      byGroup[groupName].forEach(lesson => {
+        let categoryLabel = lesson.category;
+        if (lesson.category === "Long practice") {
+          categoryLabel = t.longPracticeAllChars;
+        }
+
+        const btn = document.createElement("button");
+        btn.className = "lesson";
+        btn.dataset.id = lesson.id;
+        btn.innerHTML = `
+          <div class="lesson-main">
+            <span>${lesson.label}</span>
+            <span class="lesson-sub">${categoryLabel}</span>
+          </div>
+          <span class="lesson-tag">${lesson.tag}</span>
+        `;
+        btn.addEventListener("click", () => setCurrentLesson(lesson.id));
+        list.appendChild(btn);
+      });
+
+      lessonsList.appendChild(list);
+    });
+
+    highlightActiveLesson();
+  }
+
+  function highlightActiveLesson() {
+    const buttons = lessonsList.querySelectorAll(".lesson");
+    buttons.forEach(btn => {
+      if (currentLesson && btn.dataset.id === currentLesson.id) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+  }
+
+  function setCurrentLesson(id) {
+    const lesson = lessons.find(l => l.id === id);
+    if (!lesson) return;
+
+    currentLesson = lesson;
+    currentSegmentIndex = 0;
+    typed = "";
+    errors = 0;
+    startTime = null;
+    exerciseCompleted = false;
+
+    typedTextElem.textContent = "";
+    updateStats();
+    renderExerciseText();
+    updateSegmentLabel();
+    updateFingerHint();
+    highlightActiveLesson();
+    appRoot.focus();
+  }
+
+  // ==== EXERCISE TEXT RENDERING ============================================
+
+  function renderExerciseText() {
+    if (!currentLesson) {
+      exerciseTextElem.textContent =
+        currentUiLang === "fi"
+          ? "Valitse vasemmalta harjoitus ja ala kirjoittaa."
+          : "Select a lesson on the left and start typing.";
+      return;
+    }
+
+    const full = getCurrentText();
+    const container = document.createElement("div");
+
+    for (let i = 0; i < full.length; i++) {
+      const ch = full[i];
+      const span = document.createElement("span");
+      const typedChar = typed[i];
+
+      if (typedChar == null) {
+        if (i === typed.length) {
+          span.classList.add("current");
+        }
+      } else {
+        if (typedChar === ch) {
+          span.classList.add("done");
+        } else {
+          span.classList.add("error");
+        }
+      }
+
+      span.textContent = ch === " " ? "·" : ch;
+      container.appendChild(span);
+    }
+
+    // If the text is empty, show one highlighted placeholder
+    if (full.length === 0) {
+      const span = document.createElement("span");
+      span.classList.add("current");
+      span.textContent = " ";
+      container.appendChild(span);
+    }
+
+    exerciseTextElem.innerHTML = "";
+    exerciseTextElem.appendChild(container);
+
+    updateFingerHint();
+  }
+
+  // ==== FINGER HIGHLIGHT ====================================================
+
+  function highlightFingers(fingerKeys) {
+    allFingerDots.forEach(dot => dot.classList.remove("active"));
+    if (!fingerKeys || fingerKeys.length === 0) return;
+
+    fingerKeys.forEach(key => {
+      allFingerDots.forEach(dot => {
+        if (dot.getAttribute("data-finger") === key) {
+          dot.classList.add("active");
+        }
+      });
+    });
+  }
+
+  // ==== FINGER HINT LOGIC ===================================================
+
+  function updateFingerHint() {
+    const t = uiTexts[currentUiLang];
+
+    if (!currentLesson) {
+      fingerMain.textContent = t.fingerIdleMain;
+      fingerDetail.textContent = t.fingerIdleDetail;
+      highlightFingers([]);
+      return;
+    }
+
+    if (!currentLesson.fingerHints) {
+      fingerMain.textContent = t.fingerNoHintsMain;
+      fingerDetail.textContent = t.fingerNoHintsDetail;
+      highlightFingers([]);
+      return;
+    }
+
+    const full = getCurrentText();
+    const idx = typed.length;
+
+    // If the whole exercise is done (last segment + at or past end)
+    if (idx >= full.length && currentSegmentIndex === totalSegments() - 1) {
+      exerciseCompleted = true;
+      fingerMain.textContent = t.fingerDoneMain;
+      fingerDetail.textContent = t.fingerDoneDetail;
+      highlightFingers([]);
+      return;
+    }
+
+    const ch = full[idx] || " ";
+    let displayLabel = ch;
+
+    if (ch === " ") {
+      displayLabel = currentUiLang === "fi" ? "välilyönti" : "space";
+    } else if (ch === "\n") {
+      displayLabel = currentUiLang === "fi" ? "rivinvaihto" : "line break";
+    }
+
+    const practiceLang = currentLesson.language;
+    const layout = fingerLayouts[practiceLang];
+
+    const isLetter = ch.toLowerCase() !== ch.toUpperCase();
+    const isUppercase = isLetter && ch === ch.toUpperCase();
+
+    let fingersToHighlight = [];
+    let fingerText = "";
+
+    if (ch === " ") {
+      fingerText = t.useThumbs;
+      fingersToHighlight = ["leftThumb", "rightThumb"];
+    } else if (ch === "\n") {
+      fingerText = t.useEnter;
+      fingersToHighlight = ["rightPinky"];
+    } else if (isUppercase) {
+      const lower = ch.toLowerCase();
+      const mainFingerKey = layout.keyMap[lower] || null;
+      if (mainFingerKey) {
+        const isLeft = mainFingerKey.startsWith("left");
+        const shiftFinger = isLeft ? "rightPinky" : "leftPinky";
+        fingersToHighlight = [mainFingerKey, shiftFinger];
+        const name = layout.names[mainFingerKey];
+        const shiftName = layout.names[shiftFinger];
+        fingerText =
+          t.useFinger(name) +
+          " " +
+          (currentUiLang === "fi"
+            ? `(Shift: ${shiftName}).`
+            : `(Shift: ${shiftName}).`);
+      } else {
+        fingerText = t.noSpecific;
+      }
+    } else {
+      const keyChar = ch.toLowerCase();
+      const fingerKey = layout.keyMap[keyChar] || null;
+      if (fingerKey) {
+        const name = layout.names[fingerKey];
+        fingerText = t.useFinger(name);
+        fingersToHighlight = [fingerKey];
+      } else {
+        fingerText = t.noSpecific;
+      }
+    }
+
+    fingerMain.textContent = t.nextChar(displayLabel);
+    fingerDetail.textContent = fingerText;
+    highlightFingers(fingersToHighlight);
+  }
+
+  // ==== STATS ===============================================================
+
+  function updateStats() {
+    const charsTyped = typed.length;
+    statChars.textContent = String(charsTyped);
+    statErrors.textContent = String(errors);
+
+    let accuracy = 100;
+    if (charsTyped > 0) {
+      accuracy = Math.max(0, Math.round(((charsTyped - errors) / charsTyped) * 100));
+    }
+    statAccuracy.textContent = `${accuracy}%`;
+
+    let elapsed = 0;
+    if (startTime) {
+      elapsed = (Date.now() - startTime) / 1000;
+    }
+    statTime.textContent = `${elapsed.toFixed(1)} s`;
+
+    let wpm = 0;
+    if (elapsed > 0) {
+      const correctChars = Math.max(0, charsTyped - errors);
+      wpm = Math.round((correctChars / 5) / (elapsed / 60));
+    }
+    statWpm.textContent = `${wpm} WPM`;
+  }
+
+  function resetCurrent() {
+    if (!currentLesson) return;
+    typed = "";
+    errors = 0;
+    startTime = null;
+    currentSegmentIndex = 0;
+    exerciseCompleted = false;
+    typedTextElem.textContent = "";
+    updateStats();
+    renderExerciseText();
+    updateSegmentLabel();
+    updateFingerHint();
+  }
+
+  // ==== NEXT LESSON LOGIC ===================================================
+
+  function goToNextLesson() {
+    if (!currentLesson) return;
+
+    const lang = currentLesson.language;
+    const list = lessons.filter(l => l.language === lang);
+    const idx = list.findIndex(l => l.id === currentLesson.id);
+    if (idx === -1) return;
+    if (idx >= list.length - 1) return; // no next lesson
+
+    const next = list[idx + 1];
+    setCurrentLesson(next.id);
+  }
+
+  // ==== KEY HANDLING ========================================================
+
+  function onKeyDown(e) {
+    if (e.key === "Escape") {
+      resetCurrent();
+      e.preventDefault();
+      return;
+    }
+
+    // If exercise is completed and user presses Space or Enter,
+    // jump to the next lesson.
+    if (exerciseCompleted && (e.key === " " || e.key === "Enter")) {
+      goToNextLesson();
+      e.preventDefault();
+      return;
+    }
+
+    if (!currentLesson) return;
+
+    const full = getCurrentText();
+
+    // If we are at or past the end of the current segment and user presses
+    // space or enter, move to the next segment even if there are mistakes.
+    if (
+      currentLesson.segments &&
+      typed.length >= full.length &&
+      currentSegmentIndex < totalSegments() - 1 &&
+      (e.key === " " || e.key === "Enter")
+    ) {
+      advanceSegment();
+      e.preventDefault();
+      return;
+    }
+
+    if (e.key === "Backspace") {
+      if (typed.length > 0) {
+        const lastIndex = typed.length - 1;
+        const removedChar = typed[lastIndex];
+        const corresponding = full[lastIndex];
+        if (removedChar !== corresponding && errors > 0) {
+          errors -= 1;
+        }
+        typed = typed.slice(0, -1);
+        typedTextElem.textContent = typed;
+        renderExerciseText();
+        updateStats();
+      }
+      e.preventDefault();
+      return;
+    }
+
+    // Ignore non-character keys (except Enter/Space handled above)
+    if (e.key.length > 1 && e.key !== "Enter" && e.key !== " ") {
+      return;
+    }
+
+    if (!startTime) {
+      startTime = Date.now();
+    }
+
+    let charToAdd = e.key;
+    if (charToAdd === "Enter") {
+      charToAdd = "\n";
+    }
+
+    if (typed.length < full.length) {
+      typed += charToAdd;
+      const expected = full[typed.length - 1];
+      if (charToAdd !== expected) {
+        errors += 1;
+      }
+      typedTextElem.textContent = typed;
+      renderExerciseText();
+      updateStats();
+      flashKeyHighlight(charToAdd);
+
+      // If the segment is now perfectly complete, auto-advance (if there is
+      // another segment).
+      if (
+        currentLesson.segments &&
+        typed === full &&
+        currentSegmentIndex < totalSegments() - 1
+      ) {
+        advanceSegment();
+      }
+    }
+
+    e.preventDefault();
+  }
+
+  function advanceSegment() {
+    if (!currentLesson || !currentLesson.segments) return;
+    if (currentSegmentIndex >= totalSegments() - 1) return;
+
+    currentSegmentIndex += 1;
+    typed = "";
+    typedTextElem.textContent = "";
+    exerciseCompleted = false;
+    renderExerciseText();
+    updateSegmentLabel();
+    updateFingerHint();
+  }
+
+  function flashKeyHighlight(ch) {
+    let keyChar = ch;
+    if (keyChar === "\n") keyChar = null;
+
+    if (keyChar != null) {
+      keyChar = keyChar.toLowerCase();
+      const selector = `.key[data-key="${CSS.escape(keyChar)}"]`;
+      const keyElem = document.querySelector(selector);
+      if (keyElem) {
+        keyElem.classList.add("active");
+        setTimeout(() => keyElem.classList.remove("active"), 120);
+      }
+    }
+
+    if (ch === " ") {
+      const spaceElem = document.querySelector('.key[data-key=" "]');
+      if (spaceElem) {
+        spaceElem.classList.add("active");
+        setTimeout(() => spaceElem.classList.remove("active"), 120);
+      }
+    }
+  }
+
+  // ==== EVENT WIRING ========================================================
+
+  languageSelect.addEventListener("change", () => {
+    // Changing practice language resets current lesson
+    currentLesson = null;
+    currentSegmentIndex = 0;
+    typed = "";
+    errors = 0;
+    startTime = null;
+    exerciseCompleted = false;
+    typedTextElem.textContent = "";
+    updateStats();
+    renderLessons();
+    applyUiLanguage();
+  });
+
+  uiLanguageSelect.addEventListener("change", () => {
+    currentUiLang = uiLanguageSelect.value;
+    applyUiLanguage();
+    renderLessons();
+  });
+
+  resetBtn.addEventListener("click", resetCurrent);
+  appRoot.addEventListener("keydown", onKeyDown);
+
+  // ==== INITIALIZATION ======================================================
+
+  renderLessons();
+  updateStats();
+  applyUiLanguage();
+  appRoot.focus();
+</script>
+</body>
+</html>
