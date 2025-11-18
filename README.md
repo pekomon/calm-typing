@@ -80,24 +80,16 @@ A separate **Code drills** category will be added later for programming-focused 
 
 ---
 
-## Letter Progression (Finnish)
+## Letter Progression
 
-The app should not use a character before it is introduced in the lesson progression.
+Lessons must only use characters that have been introduced.
 
-### Lesson 1 – Home Row (FI)
-Allowed characters:
+Current lessons (see `index.html` → `lessons` for the latest):
 
-    a s d f j k l ö
-    (plus space)
+- L1: home row → a s d f j k l ö (plus space)
+- L2: adds r and u
 
-Later lessons (not yet fully implemented) will introduce:
-
-- more letters from other rows
-- eventually the letters ä and c
-- punctuation and special characters
-- symbols needed for coding drills such as parentheses, braces, brackets, semicolons and operators
-
-When adding new exercises, keep the characters consistent with what has been introduced so far.
+New lessons will keep adding a few characters at a time while mixing earlier ones to reinforce previous keys. Always follow the pattern already in `lessons`.
 
 ---
 
