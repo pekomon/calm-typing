@@ -124,7 +124,7 @@
 
     .layout {
       display: grid;
-      grid-template-columns: 290px 1fr;
+      grid-template-columns: 330px 1fr;
       gap: 18px;
     }
 
@@ -209,9 +209,10 @@
       font-size: 0.8rem;
       cursor: pointer;
       border: 1px solid transparent;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      column-gap: 10px;
       background: #020617;
       color: #d1d5db;
     }
@@ -231,6 +232,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      min-width: 0; /* allow long labels to wrap inside their column */
     }
 
     .lesson-sub {
@@ -246,6 +248,7 @@
       border: 1px solid #1f2937;
       color: #9ca3af;
       white-space: nowrap;
+      align-self: start;
     }
 
     main.main {
@@ -741,8 +744,10 @@
         "daaddö daköö kökö daddöa",
         "jaksa fassa daksa",
         "fajja kassa jassa",
-        "löjda fassa jaska",
-        "sköda jaksaa fassa"
+        "löjda sköda fassalla",
+        "kökösköda jaskalla",
+        "kassafassa jallassa",
+        "sköda jassafassa jallassa"
       ]
     },
     {
@@ -759,7 +764,9 @@
         "sköda daköö laskaa",
         "falla jalla dalsa",
         "kölö jalla jaffa",
-        "jaksa sköda fassa jalla"
+        "jaksa sköda fassalla",
+        "jallafassa sköda kassalla fassakassa",
+        "fassakassa jallafassa sködakassa kököjalla"
       ]
     },
 
@@ -968,12 +975,14 @@
       tag: "L1",
       fingerHints: true,
       segments: [
-        "sallö fallö jallö",
-        "falkö jalkö",
-        "jakad salö löj",
-        "safad lakad",
-        "löja ladlö",
-        "fassa kaddö"
+        "falla jalla skaala",
+        "kölö kalla jalla",
+        "jalla skalla fassa",
+        "löla skaala kalla",
+        "skalla fassa jalla",
+        "falla skalla jallaa",
+        "kalla skaala fassalla",
+        "skallafalla jallassa"
       ]
     },
 
@@ -1083,12 +1092,14 @@
       tag: "L1",
       fingerHints: true,
       segments: [
-        "salkad fassöd",
-        "daksa kafad",
-        "fassa jalköd",
-        "jadka sakkad",
-        "falka dassöf",
-        "sadja klaföd"
+        "falla jalla dassa kalla",
+        "kalla jalla fassa skalla",
+        "löla skaala dassa kalla",
+        "jalla kalla dassa skaala",
+        "skalla fassalla kalla jalla",
+        "falla skalla jallassa fassalla",
+        "skallafalla kalla jallassa fassassa",
+        "kallaskalla fassafalla jallaskalla"
       ]
     },
     {
