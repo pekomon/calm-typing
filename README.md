@@ -86,10 +86,21 @@ Lessons must only use characters that have been introduced.
 
 Current lessons (see `index.html` → `lessons` for the latest):
 
-- L1: home row → a s d f j k l ö (plus space)
-- L2: adds r and u
+- L1: a s d f j k l ö (plus space)
+- L2: add r u
+- L3: add t y
+- L4: add h n
+- L5: add i o
+- L6: add p m
+- L7: add ä å
+- L8: add e v
+- L9: add g b
+- L10: introduce SHIFT usage (capitals)
+- L11: add punctuation , . ; :
+- L12: add c w
+- L13: add x z q
 
-New lessons will keep adding a few characters at a time while mixing earlier ones to reinforce previous keys. Always follow the pattern already in `lessons`.
+New lessons keep adding a few characters at a time while mixing earlier ones to reinforce previous keys.
 
 ---
 
@@ -190,6 +201,141 @@ Your site will appear at:
 - Optional progress tracking using localStorage
 
 ---
+
+## Code & syntax practice (planned)
+
+CalmTyping will also include an optional *syntax track* for people who write code and want to practice typical programming symbols calmly, with proper finger hints and Mac Finnish layout support.
+
+The idea is:
+
+- Base lessons (L1–L13) teach all letters, numbers (later), and basic punctuation.
+- Syntax lessons (S1–S5) focus on programming-related symbols and operator patterns.
+- Code drills reuse those symbols in realistic snippets from Python, JavaScript/TypeScript, Go, C/Java/Kotlin and similar languages.
+
+### Goals for the syntax track
+
+- Make it natural to type common code symbols without thinking.
+- Respect Mac Finnish keyboard specifics (especially `{ } [ ]` on Alt-combinations).
+- Keep the CalmTyping style: slow, low-pressure, segment-based, no gamified stress.
+- Allow language-specific code drills later without needing to reteach the symbols.
+
+### Planned syntax lessons (S1–S5)
+
+These lessons are *symbol-first* and language-agnostic. They can be done after the current letter/punctuation lessons. (Numbers arrive later in the main track.)
+
+#### S1 – Basic punctuation for code
+
+Focus: characters that already appear in prose, but are fundamental in code:
+
+- `,` comma  
+- `.` dot  
+- `;` semicolon  
+- `:` colon  
+- `_` underscore  
+- `-` minus  
+- `+` plus  
+- `*` asterisk  
+- `/` slash  
+
+Content:
+
+- Simple symbol patterns (`;; :: __ ++ --`)  
+- Short pseudo-identifiers and function names (`do_stuff()`, `sum_total`, etc.)  
+- Calm Finnish/English phrases that gradually include these symbols.
+
+#### S2 – Parentheses & brackets
+
+Focus on all three types of brackets and their Mac Finnish key combinations:
+
+- `(` `)` – normal parentheses (Shift + 8 / 9)
+- `[` `]` – square brackets (Alt + 8 / 9)
+- `{` `}` – curly braces (Shift + Alt + 8 / 9)
+
+Content:
+
+- Drills that isolate each pair: `() [] {}`  
+- Nested patterns: `(a[b{c}])`, `func(x[0])`, etc.  
+- Small pseudo-code phrases that emphasise structure rather than realism.
+
+#### S3 – Comparison & boolean operators
+
+Focus:
+
+- `=` `==` `!=`
+- `<` `>` `<=` `>=`
+- `!` (not)
+- `&&` (and)
+- `||` (or)
+
+Content:
+
+- Symbol sequences like `== != <= >=` typed in rhythm.
+- Simple condition-like snippets: `if (x == 0)`, `while (a && !b)`  
+- Calm pseudo-conditions in both Finnish and English text segments.
+
+#### S4 – Strings & comments
+
+Focus:
+
+- `'` single quote
+- `"` double quote
+- `` ` `` backtick (JS/TS templates)
+- `#` (Python-style comment)
+- `//` and `/* */` (C/Java/JS-style comments)
+
+Content:
+
+- Quoted words and short strings: `"hello"`, `'nimi'`, `` `template` ``  
+- Comment lines: `# todo: calm down`, `// note: slow typing`  
+- Tiny “code diary” snippets that feel like real comments.
+
+#### S5 – Arrows, bitwise and misc. symbols
+
+Focus:
+
+- `->` arrow (Go, Rust, C-style pseudo)
+- `=>` fat arrow (JS/TS lambdas)
+- `&` and `|` (bitwise / logical)
+- `^` (xor)
+- `@` (annotations, decorators)
+- `$` (shell, JS templates)
+- `~` (tilde, less common but present)
+
+Content:
+
+- Arrow-heavy patterns: `x -> y`, `value => result`.
+- Short pseudo-function headers with `@decorator`-style lines.
+- Simple imagined shell / config fragments with `$` and `~`.
+
+### Code drills (planned after syntax lessons)
+
+Once the syntax lessons exist, the plan is to add *code-focused tracks* that reuse them:
+
+- **Python track**  
+  - `def`/`class` blocks, `if/elif/else`, loops (`for`, `while`)  
+  - f-strings and simple list comprehensions  
+  - Calm examples with clear spacing and predictable patterns.
+
+- **JavaScript / TypeScript track**  
+  - Arrow functions (`const fn = () => {}`)  
+  - Objects and arrays: `{ key: value }`, `[item1, item2]`  
+  - Basic async/await and simple “config object” patterns.
+
+- **Go / C / Java / Kotlin track**  
+  - `func`/`void`/`int`-style declarations  
+  - Curly-brace blocks and `if`/`for` structures  
+  - Very small, focused snippets that prioritise typing feel over language correctness.
+
+Each track will follow the same CalmTyping principles:
+
+- segmented practice (8–12 segments per drill)
+- no login, no timers, no distractions
+- clear visual finger hints for each new symbol
+- Finnish and English text variants where it makes sense.
+
+
+---
+
 
 ## License
 
