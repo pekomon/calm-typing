@@ -771,6 +771,153 @@
     },
 
     // -----------------------------------------------------------------------
+    // Syntax – S2 (brackets)
+    // -----------------------------------------------------------------------
+    {
+      id: "syntax-s2-intro",
+      group: "Syntax S2 – Brackets",
+      category: "Introduction",
+      language: "en",
+      label: "Introduction – () [] {} basics",
+      tag: "S2",
+      fingerHints: true,
+      segments: [
+        "() () ()  [] [] []  {} {} {}",
+        "( ) [ ] { } ( ) [ ] { }",
+        "(()) [[]] {{}}",
+        "()[]{} ()[]{} ()[]{}",
+        "(a) [b] {c} (a) [b] {c}",
+        "(_a) [b_] {c_}",
+        "(a+b) [c-d] {e*f}",
+        "syntax(a, b); code[c] = {v};"
+      ]
+    },
+    {
+      id: "syntax-s2-tech-1",
+      group: "Syntax S2 – Brackets",
+      category: "Technique",
+      language: "en",
+      label: "Technique drill 1 – bracket patterns",
+      tag: "S2",
+      fingerHints: true,
+      segments: [
+        "() () ()  [] [] []  {} {} {}",
+        "(()) ()() (()) ()()",
+        "[[]] [][ ] [[]] [][ ]",
+        "{{}} {}{} {{}} {}{}",
+        "([]) [{}] ({}) [()]",
+        "( _ ) [ - ] { + }",
+        "(a_b) [c-d] {e+f}",
+        "(a)/[b]*{c}  (x)+[y]-{z}"
+      ]
+    },
+    {
+      id: "syntax-s2-tech-2",
+      group: "Syntax S2 – Brackets",
+      category: "Technique",
+      language: "en",
+      label: "Technique drill 2 – mixed with punctuation & letters",
+      tag: "S2",
+      fingerHints: true,
+      segments: [
+        "a(b_c) d[e-f] r{g*h}",
+        "soft(a,b) clear[c] calm{v}",
+        "rise(low) fall[top] melt{air}",
+        "val(a:b) set[c,d] map{key:value}",
+        "data(a)/flow[b]*calc{v}",
+        "(a,b:c) [d_e] {f-g}",
+        "_sum(a,b) += array[c]",
+        "frame(a){line[b]; arc(c)}"
+      ]
+    },
+    {
+      id: "syntax-s2-tech-3",
+      group: "Syntax S2 – Brackets",
+      category: "Technique",
+      language: "en",
+      label: "Technique drill 3 – flowing bracket rhythm",
+      tag: "S2",
+      fingerHints: true,
+      segments: [
+        "soft(a) calm[b] clear{c}",
+        "air(a,b) flow[c,d] rise{e*f}",
+        "path(a)+path[b] - aura{v}",
+        "mix(a/b) sum[c*d] draw{v}",
+        "val(a)+low[b]/soft{c}",
+        "(air_light) [soft_line] {calm_mode}",
+        "aura(a): slow[b]; edge{c}",
+        "logic(a && b){return c;}"
+      ]
+    },
+    {
+      id: "syntax-s2-words-1",
+      group: "Syntax S2 – Brackets",
+      category: "Word practice",
+      language: "en",
+      label: "Word practice 1 – bracketed terms",
+      tag: "S2",
+      fingerHints: true,
+      segments: [
+        "soft(a) calm(b) clear(c)",
+        "air_flow(a) near[b] data{c}",
+        "rise_low(a,b) slow[c] aura{d}",
+        "val(a)+rate[b] map{c}",
+        "clear[a] soft{b} calm(c)",
+        "co_de(a) slow[b] wave{c}",
+        "flow(a)/rise[b] melt{c}",
+        "tiny(a) warm[b] line{c}"
+      ]
+    },
+    {
+      id: "syntax-s2-words-2",
+      group: "Syntax S2 – Brackets",
+      category: "Word practice",
+      language: "en",
+      label: "Word practice 2 – structured code-like phrases",
+      tag: "S2",
+      fingerHints: true,
+      segments: [
+        "node(a){data[b] = calm(c);}",
+        "flow(a,b){rate[c] = rise(d);}",
+        "soft(a){return slow[b]/air[c];}",
+        "map[a] = {low:1, high:2};",
+        "frame(a){line[b]; arc(c);}",
+        "rise(a){path[b]+=soft(c);}",
+        "vector[a,b] = mix(c,d);",
+        "logic(a && b){val[c] = aura(d);}"
+      ]
+    },
+    {
+      id: "syntax-s2-long-fi",
+      group: "Syntax S2 – Brackets",
+      category: "Long practice",
+      language: "fi",
+      label: "Long practice – FI calm story with bracketed pseudocode",
+      tag: "S2",
+      fingerHints: true,
+      segments: [
+        "Aava liikkuu hiljaa – valo, ilma ja meri kulkevat rinnakkain; kaikessa on rauha. Polku jatkuu pehmeästi, askel askeleelta: hitaasti, tasaisesti. aura_flow = valo_soft + ilma_calm; ranta_line = aalto_sum / aika;",
+        "Aamun pehmeä ilma kantaa meren yllä, ja valo asettuu laaksoon; hitaasti, lempeästi. Ranta hengittää, ja aava avautuu ilman kiirettä: tila_rauhassa = ilma_soft * aika_slow; data_rate = aalto_count / sekunti;",
+        "Kun kuljet rantaa, huomaat kuinka hiekka vaihtuu kiveen – ja polku kaartuu takaisin aavalle; rauha pysyy. Ilma, valo ja laine muodostavat yhteisen rytmin: step_sum += 1; calm_level = calm_level - stress_factor;",
+        "Rauha laskeutuu aamuun – aallot, hiekka, tuuli: kaikki liikkuu yhdessä. Hengität, ja maailma vastaa; lempeästi, tasaisesti. soft_line = air_flow + light_glow; slow_mode = true / true; aura_total = aura_total * 0.5;"
+      ]
+    },
+    {
+      id: "syntax-s2-long-en",
+      group: "Syntax S2 – Brackets",
+      category: "Long practice",
+      language: "en",
+      label: "Long practice – EN calm narrative with structured bracketed pseudocode",
+      tag: "S2",
+      fingerHints: true,
+      segments: [
+        "Calm air moves slowly, and soft light rests over the shore; everything breathes in a gentle rhythm. The line of water shifts quietly: waves form, fall, and rise again. calm_level = base_calm + soft_gain; wave_rate = wave_count / time_step;",
+        "A subtle glow rises beyond the valley – warm air settles near the grass; soft patterns appear. Each motion is steady, calm and even: flow_sum += low_flow; light_mix = clear_light * 0.5;",
+        "Near the river, water glides without hurry – air, light and sound blend softly; the world holds its pace. Every moment seems to float: data_path = river_line / segment_count; ease_score = calm_level - noise_value;",
+        "At the lake’s edge, morning unfolds – quiet shapes roll over the surface; warmth lands on the shore: soft_code = calm_input + light_input; slow_mode = true; aura_output = soft_code / 2.0;"
+      ]
+    },
+    // -----------------------------------------------------------------------
     // Syntax – S1 (punctuation for code)
     // -----------------------------------------------------------------------
     {
