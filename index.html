@@ -4350,7 +4350,11 @@
     lessonsList.innerHTML = "";
 
     // Group lessons by "group" field to show small section headers
-    const filtered = lessons.filter(l => l.language === practiceLang);
+    // Always include syntax lessons regardless of practiceLang so they stay visible in both FI/EN views.
+    const filtered = lessons.filter(l => {
+      const isSyntax = l.group && l.group.startsWith("Syntax");
+      return l.language === practiceLang || isSyntax;
+    });
     const byGroup = {};
     filtered.forEach(lesson => {
       if (!byGroup[lesson.group]) byGroup[lesson.group] = [];
