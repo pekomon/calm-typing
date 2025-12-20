@@ -125,6 +125,16 @@ Later lessons will introduce:
 
 If an agent adds characters prematurely, this must be corrected.
 
+### Capital Letters, Acronyms, and Mixed Case (after L10)
+
+After the SHIFT / capital letters lesson (L10), uppercase use becomes normal practice.
+
+- Allowed from L10 onward: capitalized words (e.g. `Pause`), acronyms (e.g. `API`, `HTML`), and mixed-case identifiers like camelCase (`runTask`, `saveState`) or PascalCase (`WorkManager`, `MainTask`), plus short identifiers (`wrkMgr`, `cfgVal`).
+- All letters must already be introduced in earlier lessons.
+- Capitalization must be meaningful (names, acronyms, identifiers), not random noise.
+- Avoid all-caps blocks; capitals should appear naturally and gradually.
+- Applies to word practice, long practice, and syntax/code-oriented lessons.
+
 ---
 
 ## 6. Typing Engine Logic
@@ -439,4 +449,3 @@ When generating CalmTyping lesson content:
     - Output clean JavaScript-string segments, one per line.
 
 These instructions apply to all lessons (L1–L10), in both languages, for both short and long practice segments.
-
