@@ -427,6 +427,14 @@
       margin-bottom: 4px;
     }
 
+    .kb-row.symbols {
+      flex-wrap: wrap;
+    }
+
+    .kb-row.symbols .key {
+      min-width: 26px;
+    }
+
     .key {
       min-width: 28px;
       padding: 6px 6px;
@@ -595,6 +603,31 @@
           <div class="key" data-key="9">9</div>
           <div class="key" data-key="0">0</div>
           <div class="key" data-key="+">+</div>
+        </div>
+        <div class="kb-row symbols">
+          <div class="key" data-key="=">=</div>
+          <div class="key" data-key="/">&sol;</div>
+          <div class="key" data-key="*">*</div>
+          <div class="key" data-key="(">(</div>
+          <div class="key" data-key=")">)</div>
+          <div class="key" data-key="[">[</div>
+          <div class="key" data-key="]">]</div>
+          <div class="key" data-key="{">{</div>
+          <div class="key" data-key="}">}</div>
+          <div class="key" data-key="&lt;">&lt;</div>
+          <div class="key" data-key="&gt;">&gt;</div>
+        </div>
+        <div class="kb-row symbols">
+          <div class="key" data-key="'">'</div>
+          <div class="key" data-key="&quot;">&quot;</div>
+          <div class="key" data-key="`">`</div>
+          <div class="key" data-key="#">#</div>
+          <div class="key" data-key="@">@</div>
+          <div class="key" data-key="$">$</div>
+          <div class="key" data-key="~">~</div>
+          <div class="key" data-key="&amp;">&amp;</div>
+          <div class="key" data-key="|">|</div>
+          <div class="key" data-key="^">^</div>
         </div>
         <div class="kb-row">
           <div class="key wide">Tab</div>
@@ -4357,7 +4390,7 @@
         "Soft air glides over the water in steady layers: layer_4, layer_5, layer_6, layer_7. Each one blends quietly into the next, forming a calm progression.",
         "Near the shore, small reflections flicker: glow_45, warm_56, soft_67. They move in gentle alignment, as if the lake were computing its own rhythm.",
         "The valley opens slowly, and warm air settles: phase_4 -> phase_5 -> phase_6 -> phase_7. Every change is smooth, balanced, unhurried.",
-        "At the water’s edge, you imagine a simple update: value_4 + value_5 + value_6 + value_7 = ease. The landscape holds this equation in silence."
+        "At the water's edge, you imagine a simple update: value_4 + value_5 + value_6 + value_7 = ease. The landscape holds this equation in silence."
       ]
     },
 
@@ -4488,10 +4521,10 @@
       tag: "S1",
       fingerHints: true,
       segments: [
-        "Aava liikkuu hiljaa – valo, ilma ja meri kulkevat rinnakkain; kaikessa on rauha. Polku jatkuu pehmeästi, askel askeleelta: hitaasti, tasaisesti. aura_flow = valo_soft + ilma_calm; ranta_line = aalto_sum / aika;",
+        "Aava liikkuu hiljaa - valo, ilma ja meri kulkevat rinnakkain; kaikessa on rauha. Polku jatkuu pehmeästi, askel askeleelta: hitaasti, tasaisesti. aura_flow = valo_soft + ilma_calm; ranta_line = aalto_sum / aika;",
         "Aamun pehmeä ilma kantaa meren yllä, ja valo asettuu laaksoon; hitaasti, lempeästi. Ranta hengittää, ja aava avautuu ilman kiirettä: tila_rauhassa = ilma_soft * aika_slow; data_rate = aalto_count / sekunti;",
-        "Kun kuljet rantaa, huomaat kuinka hiekka vaihtuu kiveen – ja polku kaartuu takaisin aavalle; rauha pysyy. Ilma, valo ja laine muodostavat yhteisen rytmin: step_sum += 1; calm_level = calm_level - stress_factor;",
-        "Rauha laskeutuu aamuun – aallot, hiekka, tuuli: kaikki liikkuu yhdessä. Hengität, ja maailma vastaa; lempeästi, tasaisesti. soft_line = air_flow + light_glow; slow_mode = true / true; aura_total = aura_total * 0.5;"
+        "Kun kuljet rantaa, huomaat kuinka hiekka vaihtuu kiveen - ja polku kaartuu takaisin aavalle; rauha pysyy. Ilma, valo ja laine muodostavat yhteisen rytmin: step_sum += 1; calm_level = calm_level - stress_factor;",
+        "Rauha laskeutuu aamuun - aallot, hiekka, tuuli: kaikki liikkuu yhdessä. Hengität, ja maailma vastaa; lempeästi, tasaisesti. soft_line = air_flow + light_glow; slow_mode = true / true; aura_total = aura_total * 0.5;"
       ]
     },
     {
@@ -4504,9 +4537,9 @@
       fingerHints: true,
       segments: [
         "Calm air moves slowly, and soft light rests over the shore; everything breathes in a gentle rhythm. The line of water shifts quietly: waves form, fall, and rise again. calm_level = base_calm + soft_gain; wave_rate = wave_count / time_step;",
-        "A subtle glow rises beyond the valley – warm air settles near the grass; soft patterns appear. Each motion is steady, calm and even: flow_sum += low_flow; light_mix = clear_light * 0.5;",
-        "Near the river, water glides without hurry – air, light and sound blend softly; the world holds its pace. Every moment seems to float: data_path = river_line / segment_count; ease_score = calm_level - noise_value;",
-        "At the lake’s edge, morning unfolds – quiet shapes roll over the surface; warmth lands on the shore: soft_code = calm_input + light_input; slow_mode = true; aura_output = soft_code / 2.0;"
+        "A subtle glow rises beyond the valley - warm air settles near the grass; soft patterns appear. Each motion is steady, calm and even: flow_sum += low_flow; light_mix = clear_light * 0.5;",
+        "Near the river, water glides without hurry - air, light and sound blend softly; the world holds its pace. Every moment seems to float: data_path = river_line / segment_count; ease_score = calm_level - noise_value;",
+        "At the lake's edge, morning unfolds - quiet shapes roll over the surface; warmth lands on the shore: soft_code = calm_input + light_input; slow_mode = true; aura_output = soft_code / 2.0;"
       ]
     },
 
@@ -4639,7 +4672,7 @@
         "Aava kulkee hiljaa, ja polku avautuu edessä. Kun valo laskeutuu veden pintaan, huomaat miten pieni muoto syntyy: laskenta(a){arvo[b] = valo(c);} Ranta hengittää rauhassa, ja ilma liikkuu hitaasti [aavan yllä].",
         "Kun jatkat eteenpäin, huomaat kuinka vesi piirtää pehmeän viivan. Aaltojen rytmi muistuttaa koodia: virta(a,b){sum[c] += d;} Kaikki liikkuu lempeästi, kuin sulkeiden sisällä oleva hiljainen logiikka.",
         "Rannan kivien väliin muodostuu oma rakenne: rakenne(a){kohta[b] = pehmeä(c);} Ilma kulkee tasaisesti, ja laineiden kulku seuraa samaa rauhallista mallia. Aava avautuu kuin funktio, joka palauttaa hiljaisuuden.",
-        "Valo leviää hitaasti. Voit melkein kuulla kuinka maailma suorittaa oman ohjelmansa: maailma(a){valo[b] = ilma(c);} Ranta, aava ja tuuli muodostavat kokonaisuuden – kuin järjestetty taulukko, jossa jokainen kohta löytää paikkaansa."
+        "Valo leviää hitaasti. Voit melkein kuulla kuinka maailma suorittaa oman ohjelmansa: maailma(a){valo[b] = ilma(c);} Ranta, aava ja tuuli muodostavat kokonaisuuden - kuin järjestetty taulukko, jossa jokainen kohta löytää paikkaansa."
       ]
     },
     {
@@ -4653,8 +4686,8 @@
       segments: [
         "Calm air drifts along the water, and soft light forms a quiet line across the surface. A gentle structure appears: flow(a){rate[b] = soft(c);} The valley opens slowly, as though wrapped in wide, peaceful brackets.",
         "Near the shore, the rhythm of waves feels like a function repeating: wave(a,b){shape[c] = rise(d);} Everything follows a steady cadence, blending light, air and motion together.",
-        "At the river’s edge, the world forms a silent pattern. You can imagine it written as: calm(a){air[b] = glow(c);} The water glides without hurry; time stretches in soft, clear steps.",
-        "Morning settles over the lake, and the wind moves gently. A small model appears in your thoughts: model(a){line[b] += warm(c);} Every part of the landscape feels arranged, structured, balanced – as if held together by quiet brackets."
+        "At the river's edge, the world forms a silent pattern. You can imagine it written as: calm(a){air[b] = glow(c);} The water glides without hurry; time stretches in soft, clear steps.",
+        "Morning settles over the lake, and the wind moves gently. A small model appears in your thoughts: model(a){line[b] += warm(c);} Every part of the landscape feels arranged, structured, balanced - as if held together by quiet brackets."
       ]
     },
 
@@ -4802,7 +4835,7 @@
         "Calm light settles over the water as morning rises. It feels as if the landscape evaluates each step: if (air <= soft && !error) flow = gentle; Waves move quietly, balancing each motion.",
         "Along the shore, warm air drifts across the surface. The world seems to run a simple rule: if (light >= warm && clear == true) ease = rise; Everything follows a soft pattern.",
         "Near the river, each ripple feels like a quiet condition: if (value != noise && calm_mode) time += soft; Light reflects across the water and blends into slow motion.",
-        "At the lake’s edge, wind moves lightly — steady, balanced. A small idea forms: if (!fault && steady == true) horizon = glow; The day unfolds, structured and calm."
+        "At the lake's edge, wind moves lightly - steady, balanced. A small idea forms: if (!fault && steady == true) horizon = glow; The day unfolds, structured and calm."
       ]
     },
 
@@ -4950,7 +4983,7 @@
         "Soft air settles across the water, as if the moment were a line of code: // mode = 'calm'. Light reflects gently, forming patterns like quiet notes in a warm script.",
         "Along the shore, waves write their own message: \"rise_low\" becomes `soft_line` beneath the morning glow. # day_mode = 'steady'. Everything moves with even balance.",
         "Near the trees, warm air drifts slowly. It feels like a comment left by the landscape itself: /* glow = \"soft\" */. Each sound blends into a gentle pace.",
-        "On the lake’s edge, light traces a calm shape. You imagine the world updating its state: sky = `warm_air`; // return 'ease'. Slowly, everything settles."
+        "On the lake's edge, light traces a calm shape. You imagine the world updating its state: sky = `warm_air`; // return 'ease'. Slowly, everything settles."
       ]
     },
 
@@ -5081,7 +5114,7 @@
       fingerHints: true,
       segments: [
         "Aava liikkuu hiljaa, ja valo osuu veden pintaan. Tuntuu kuin maailma tekisi pienen laskutoimituksen: valo->pehmeä; ilma=>lämmin; rauha = aava & hiljaisuus. Kun tuuli kääntyy, jokin muuttuu: ~kylmä & lämmin.",
-        "Ranta hengittää omassa rytmissään. Laineet piirtävät pieniä ehto­muotoja: jos (valo & ilma) aalto->pehmeä. Voit melkein kuulla: @merkintä; aura=>lempeä; sumu = valo | vesi. Kaikki tuntuu rauhalliselta.",
+        "Ranta hengittää omassa rytmissään. Laineet piirtävät pieniä ehtomuotoja: jos (valo & ilma) aalto->pehmeä. Voit melkein kuulla: @merkintä; aura=>lempeä; sumu = valo | vesi. Kaikki tuntuu rauhalliselta.",
         "Kun kuljet eteenpäin, huomaat pienen rakenteen syntyvän ajatuksiisi: tila->valo; aika=>virta; rauha ^= melu. Rannan tuuli kulkee tasaista polkua, eikä mikään kiirehdi.",
         "Auringon valo siirtyy horisonttiin. On kuin maailma kirjoittaisi oman loginsa: päivitys->aamu; tila=>selkeä; virtaus = lämmin & pehmeä; ~häiriö. Kaikki palaa hiljaiseen tasapainoon."
       ]
@@ -5096,7 +5129,7 @@
       fingerHints: true,
       segments: [
         "Soft air moves across the lake, as if the world were calling functions quietly: light->calm; air=>warm; flow = soft & steady. A gentle breeze passes, clearing the surface like ~noise.",
-        "Near the water’s edge, small waves shift in a pattern: wave->rise; glow=>line; value = air | light. Everything feels balanced, held together by simple rules.",
+        "Near the water's edge, small waves shift in a pattern: wave->rise; glow=>line; value = air | light. Everything feels balanced, held together by simple rules.",
         "Across the valley, warm light drifts upward. It is easy to imagine: day->soft; morning=>clear; rhythm ^= motion. The landscape follows its own smooth logic.",
         "At the shoreline, wind brushes over the surface. A quiet structure appears: horizon->warm; sky=>ease; warmth = air & glow; ~cold. The world settles into calm motion."
       ]
@@ -5133,7 +5166,16 @@
         "9": "rightRing", "o": "rightRing", "l": "rightRing", ".": "rightRing",
         "0": "rightPinky", "+": "rightPinky", "p": "rightPinky", "å": "rightPinky",
         "ö": "rightPinky", "ä": "rightPinky", "-": "rightPinky", "_": "rightPinky",
-        "?": "rightPinky", "!": "rightPinky", ":": "rightPinky", ";": "rightPinky"
+        "?": "rightPinky", "!": "rightPinky", ":": "rightPinky", ";": "rightPinky",
+        "=": "rightPinky", "/": "rightIndex", "*": "rightMiddle",
+        "(": "rightMiddle", ")": "rightRing",
+        "[": "rightMiddle", "]": "rightRing",
+        "{": "rightMiddle", "}": "rightRing",
+        "<": "leftPinky", ">": "leftPinky",
+        "'": "rightPinky", "\"": "rightPinky",
+        "`": "leftPinky", "#": "leftMiddle", "@": "leftRing", "$": "leftIndex",
+        "&": "rightIndex", "|": "rightIndex",
+        "^": "rightPinky", "~": "rightPinky"
       }
     },
     en: null
@@ -5250,6 +5292,10 @@
 
   const allFingerDots = document.querySelectorAll(".finger-dot");
   const allKeys = document.querySelectorAll(".key[data-key]");
+
+  const shiftRequiredSymbols = new Set(["(", ")"]);
+  const altRequiredSymbols = new Set(["[", "]", "{", "}"]);
+  const altShiftRequiredSymbols = new Set(["{", "}"]);
 
   // ==== STATE ===============================================================
 
@@ -5557,6 +5603,9 @@
 
     const isLetter = ch.toLowerCase() !== ch.toUpperCase();
     const isUppercase = isLetter && ch === ch.toUpperCase();
+    const isShiftRequired = shiftRequiredSymbols.has(ch);
+    const isAltRequired = altRequiredSymbols.has(ch);
+    const isAltShiftRequired = altShiftRequiredSymbols.has(ch);
 
     let fingersToHighlight = [];
     let fingerText = "";
@@ -5567,9 +5616,9 @@
     } else if (ch === "\n") {
       fingerText = t.useEnter;
       fingersToHighlight = ["rightPinky"];
-    } else if (isUppercase) {
+    } else if (isUppercase || isShiftRequired) {
       const lower = ch.toLowerCase();
-      const mainFingerKey = layout.keyMap[lower] || null;
+      const mainFingerKey = layout.keyMap[ch] || layout.keyMap[lower] || null;
       if (mainFingerKey) {
         const isLeft = mainFingerKey.startsWith("left");
         const shiftFinger = isLeft ? "rightPinky" : "leftPinky";
@@ -5580,6 +5629,32 @@
           (currentUiLang === "fi"
             ? `Suositus: ${name} + Shift (${shiftName}).`
             : `Recommended: ${name} + Shift (${shiftName}).`);
+      } else {
+        fingerText = t.noSpecific;
+      }
+    } else if (isAltRequired) {
+      const lower = ch.toLowerCase();
+      const mainFingerKey = layout.keyMap[ch] || layout.keyMap[lower] || null;
+      if (mainFingerKey) {
+        const altFinger = "leftThumb";
+        const name = layout.names[mainFingerKey];
+        const altName = layout.names[altFinger];
+        if (isAltShiftRequired) {
+          const isLeft = mainFingerKey.startsWith("left");
+          const shiftFinger = isLeft ? "rightPinky" : "leftPinky";
+          const shiftName = layout.names[shiftFinger];
+          fingersToHighlight = [mainFingerKey, altFinger, shiftFinger];
+          fingerText =
+            (currentUiLang === "fi"
+              ? `Suositus: ${name} + Alt (${altName}) + Shift (${shiftName}).`
+              : `Recommended: ${name} + Alt (${altName}) + Shift (${shiftName}).`);
+        } else {
+          fingersToHighlight = [mainFingerKey, altFinger];
+          fingerText =
+            (currentUiLang === "fi"
+              ? `Suositus: ${name} + Alt (${altName}).`
+              : `Recommended: ${name} + Alt (${altName}).`);
+        }
       } else {
         fingerText = t.noSpecific;
       }
