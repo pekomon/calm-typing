@@ -5602,7 +5602,11 @@
   const allFingerDots = document.querySelectorAll(".finger-dot");
   const allKeys = document.querySelectorAll(".key[data-key]");
 
-  const shiftRequiredSymbols = new Set(["(", ")"]);
+  const shiftRequiredSymbols = new Set([
+    "(", ")",
+    "!", "\"", "#", "¤", "%", "&", "/", "=", "?", "+", "*",
+    "_", ":", ";", "<", ">", "$"
+  ]);
   const altRequiredSymbols = new Set(["[", "]", "{", "}", "@", "|", "~"]);
   const altShiftRequiredSymbols = new Set(["{", "}"]);
 
